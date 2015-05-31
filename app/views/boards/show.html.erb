@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @board.name %>
+</p>
+
+<p>
+  <strong>Trello:</strong>
+  <%= @board.trello_id %>
+</p>
+
+<p>
+  <strong>Last sync date:</strong>
+  <%= @board.last_sync_date %>
+</p>
+
+<%= link_to 'Edit', edit_board_path(@board) %> |
+<%= link_to 'Back', boards_path %>
