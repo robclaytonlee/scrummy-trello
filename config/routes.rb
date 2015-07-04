@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+
+  resources :cards
+
+  resources :boards
+
+  root to: "home#index"
+
+  get 'home' => 'home#index'
+
+  get 'index' => 'home#index'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
