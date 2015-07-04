@@ -1,6 +1,7 @@
-<h1>Editing board</h1>
+<div id="page-wrapper">
+  <%= render 'page_title', title: "Editing Boards" %>
+  <%= render 'form' %>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @board %> |
-<%= link_to 'Back', boards_path %>
+  <%= link_to 'Show', @board %> |
+  <%= link_to 'Back', boards_path %>
+</div>

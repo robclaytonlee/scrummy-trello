@@ -1,31 +1,35 @@
-<h1>Listing boards</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Trello</th>
-      <th>Last sync date</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @boards.each do |board| %>
-      <tr>
-        <td><%= board.name %></td>
-        <td><%= board.trello_id %></td>
-        <td><%= board.last_sync_date %></td>
-        <td><%= link_to 'Show', board %></td>
-        <td><%= link_to 'Edit', edit_board_path(board) %></td>
-        <td><%= link_to 'Destroy', board, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Board', new_board_path %>
+<div id="page-wrapper">
+  <%= render 'page_title', title: "Trello Boards" %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-responsive">
+         <table class="table table-striped table-bordered table-hover">
+           <thead>
+             <tr>
+               <th>Name</th>
+               <th>Trello Id</th>
+               <th>Last sync date</th>
+               <th></th>
+               <th></th>
+               <th></th>
+             </tr>
+           </thead>
+           <tbody>
+             <% @boards.each do |board| %>
+               <tr>
+                 <td><%= board.name %></td>
+                 <td><%= board.trello_id %></td>
+                 <td><%= board.last_sync_date %></td>
+                 <td><%= link_to 'Show', board %></td>
+                 <td><%= link_to 'Edit', edit_board_path(board) %></td>
+                 <td><%= link_to 'Destroy', board, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+               </tr>
+             <% end %>
+           </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <br>
+  <%= link_to 'New Board', new_board_path %>
+</div>
