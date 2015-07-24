@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'pg'
 gem 'rest-client'
-gem 'trello'
+gem 'ruby-trello'
 
 gem 'rails', '4.2.1'
 gem 'sass-rails', '~> 4.0.0'
