@@ -11,36 +11,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150606062936) do
+ActiveRecord::Schema.define(version: 20150724204158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
-  create_table "boards", force: true do |t|
-    t.string   "name"
-    t.string   "trello_id"
+  create_table "boards", force: :cascade do |t|
+    t.string   "name",           null: false
+    t.string   "trello_id",      null: false
     t.datetime "last_sync_date"
+    t.integer  "cards_count",    null: false
+    t.string   "url",            null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "cards_count"
   end
 
-  create_table "cards", force: true do |t|
-    t.string   "title"
-    t.string   "trello_id"
-    t.string   "url"
-    t.integer  "board_id"
+  add_index "boards", ["cards_count"], name: "index_boards_on_cards_count", using: :btree
+  add_index "boards", ["name"], name: "index_boards_on_name", using: :btree
+
+  create_table "cards", force: :cascade do |t|
+    t.string   "title",      null: false
+    t.integer  "board_id",   null: false
+    t.string   "trello_id",  null: false
+    t.string   "url",        null: false
     t.float    "points"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "settings", force: true do |t|
-    t.string   "dev_public_key"
-    t.string   "member_token"
-    t.integer  "project_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "cards", ["board_id"], name: "index_cards_on_board_id", using: :btree
+  add_index "cards", ["title"], name: "index_cards_on_title", using: :btree
 
+  add_foreign_key "cards", "boards"
 end
