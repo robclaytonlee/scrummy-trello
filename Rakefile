@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-TrelloScrum::Application.load_tasks
+ScrummyTrello::Application.load_tasks
