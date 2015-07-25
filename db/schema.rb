@@ -11,18 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724214149) do
+ActiveRecord::Schema.define(version: 20150725033519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
 
   create_table "boards", force: :cascade do |t|
-    t.string   "name",           null: false
-    t.string   "trello_id",      null: false
+    t.string   "name",                       null: false
+    t.string   "trello_id",                  null: false
     t.datetime "last_sync_date"
-    t.integer  "cards_count",    null: false
-    t.string   "url",            null: false
+    t.integer  "cards_count",    default: 0, null: false
+    t.string   "url",                        null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

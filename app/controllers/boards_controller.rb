@@ -69,6 +69,6 @@ class BoardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def board_params
-      params.require(:board).permit(:name, :trello_id, :last_sync_date)
+      params.require(:board).permit(:name, :trello_id, :cards_count, :url, :last_sync_date)
     end
 end
