@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150725043854) do
+ActiveRecord::Schema.define(version: 20150726192307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,17 +31,17 @@ ActiveRecord::Schema.define(version: 20150725043854) do
   add_index "boards", ["name"], name: "index_boards_on_name", using: :btree
 
   create_table "cards", force: :cascade do |t|
-    t.string   "title",      null: false
+    t.string   "name",       null: false
     t.integer  "board_id",   null: false
     t.string   "trello_id",  null: false
-    t.string   "url",        null: false
+    t.string   "trello_url", null: false
     t.float    "points"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "cards", ["board_id"], name: "index_cards_on_board_id", using: :btree
-  add_index "cards", ["title"], name: "index_cards_on_title", using: :btree
+  add_index "cards", ["name"], name: "index_cards_on_name", using: :btree
 
   create_table "labels", force: :cascade do |t|
     t.string   "name",       null: false
