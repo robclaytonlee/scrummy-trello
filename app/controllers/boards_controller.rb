@@ -16,11 +16,6 @@ class BoardsController < ApplicationController
   def show
   end
 
-  def show_cards
-    @board = set_board
-    @te = TrelloExtractor.new
-  end
-
   # GET /boards/new
   def new
     @board = Board.new

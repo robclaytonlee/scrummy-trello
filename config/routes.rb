@@ -2,12 +2,8 @@ Rails.application.routes.draw do
 
   resources :cards
 
-  resources :boards do
-    member do
-      get 'show_cards'
-    end
-  end
-  
+  resources :boards
+
   root to: "home#index"
 
   get 'home' => 'home#index'
