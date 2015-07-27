@@ -6,9 +6,9 @@
         <table class="table table-striped table-bordered table-hover">
           <thead>
             <tr>
+              <th>Card No.</th>
               <th>Title</th>
               <th>Trello</th>
-              <th>Url</th>
               <th>Board</th>
               <th>Points</th>
               <th></th>
@@ -19,9 +19,9 @@
           <tbody>
             <% @cards.each do |card| %>
               <tr>
+                <td><a href="<%= card.trello_url %>" target="_blank"><%= card.short_id %></a></td>
                 <td><%= card.name %></td>
                 <td><%= card.trello_id %></td>
-                <td><%= card.trello_url %></td>
                 <td><%= card.board_id %></td>
                 <td><%= card.points %></td>
                 <td><%= link_to 'Show', card %></td>

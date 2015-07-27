@@ -13,7 +13,7 @@ class TrelloExtractor
       trello_board_id = b.trello_id
     end
 
-    url = "https://api.trello.com/1/board/#{trello_board_id}/cards?fields=name,labels,url&#{@@auth_params}"
+    url = "https://api.trello.com/1/board/#{trello_board_id}/cards?fields=name,labels,url,idShort&#{@@auth_params}"
     response = RestClient.get url, { accept: :json }
     JSON.parse(response)
   end
@@ -29,7 +29,7 @@ class TrelloExtractor
         points += label["name"].to_f
       end
 
-      c.update(name: element["name"], board_id: board_id, trello_url: element["url"], points: points)
+      c.update(name: element["name"], board_id: board_id, short_id: element["idShort"], trello_url: element["url"], points: points)
       n+=1
       break unless n < 20
     end
