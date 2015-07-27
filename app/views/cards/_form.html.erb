@@ -11,25 +11,25 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
+  <div class="form-group">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, :class => "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :trello_id %><br>
-    <%= f.text_field :trello_id %>
+    <%= f.text_field :trello_id, :class => "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :url %><br>
-    <%= f.text_field :url %>
+  <div class="form-group">
+    <%= f.label :trello_url %><br>
+    <%= f.text_field :trello_url, :class => "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :board_id %><br>
-    <%= f.number_field :board_id %>
+    <%= f.number_field :board_id, :class => "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :points %><br>
-    <%= f.text_field :points %>
+    <%= f.text_field :points, :class => "form-control" %>
   </div>
   <div class="actions">
     <%= f.submit %>

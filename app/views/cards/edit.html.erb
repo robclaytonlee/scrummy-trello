@@ -1,6 +1,7 @@
-<h1>Editing card</h1>
+<div id="page-wrapper">
+  <%= render 'page_title', title: "Editing Card" %>
+  <%= render 'form' %>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @card %> |
-<%= link_to 'Back', cards_path %>
+  <%= link_to 'Show', @card %> |
+  <%= link_to 'Back', cards_path %>
+</div>
