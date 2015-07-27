@@ -1,14 +1,10 @@
 class BoardsController < ApplicationController
   before_action :set_board, only: [:show, :edit, :update, :destroy]
 
-  attr_reader :trellocards
-
-  @trellocards = {}
-
   # GET /boards
   # GET /boards.json
   def index
-    @board = Board.all
+    @boards = Board.all
   end
 
   # GET /boards/1
