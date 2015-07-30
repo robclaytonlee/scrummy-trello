@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Trello:
+  = @list.trello_id
+%p
+  %b Name:
+  = @list.name
+%p
+  %b Closed:
+  = @list.closed
+%p
+  %b Position:
+  = @list.position
+
+= link_to 'Edit', edit_list_path(@list)
+\|
+= link_to 'Back', lists_path
