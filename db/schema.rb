@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150727031845) do
+ActiveRecord::Schema.define(version: 20150729224905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,9 +39,11 @@ ActiveRecord::Schema.define(version: 20150727031845) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "short_id"
+    t.integer  "list_id",    null: false
   end
 
   add_index "cards", ["board_id"], name: "index_cards_on_board_id", using: :btree
+  add_index "cards", ["list_id"], name: "index_cards_on_list_id", using: :btree
   add_index "cards", ["name"], name: "index_cards_on_name", using: :btree
 
   create_table "labels", force: :cascade do |t|
@@ -55,6 +57,22 @@ ActiveRecord::Schema.define(version: 20150727031845) do
   add_index "labels", ["card_id"], name: "index_labels_on_card_id", using: :btree
   add_index "labels", ["name"], name: "index_labels_on_name", using: :btree
 
+  create_table "lists", force: :cascade do |t|
+    t.string   "name",                    null: false
+    t.integer  "board_id",                null: false
+    t.string   "trello_id",               null: false
+    t.boolean  "closed",                  null: false
+    t.integer  "position",                null: false
+    t.integer  "cards_count", default: 0, null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "lists", ["name"], name: "index_lists_on_name", using: :btree
+  add_index "lists", ["trello_id"], name: "index_lists_on_trello_id", using: :btree
+
   add_foreign_key "cards", "boards"
+  add_foreign_key "cards", "lists"
   add_foreign_key "labels", "cards"
+  add_foreign_key "lists", "boards"
 end
