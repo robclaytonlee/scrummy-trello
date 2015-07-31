@@ -2,14 +2,15 @@
 
 class TrelloExtractor
 
-  attr_reader :board_id, :trello_board_id, :lists
+  attr_reader :board_id, :trello_board_id, :lists, :last_sync_date
 
   @@auth_params = ["key=#{Rails.application.secrets.trello_dev_public_key}",
                    "token=#{Rails.application.secrets.trello_member_token}"].join('&')
 
   def initialize(board_id)
     @board_id = board_id
-    @trello_board_id = Board.where(id: board_id).select(:trello_id).first.trello_id
+    b = Board.where(id: board_id).select(:trello_id, :last_sync_date).first
+    @trello_board_id, @last_sync_date = b.trello_id, b.last_sync_date
     @lists = {}
   end
 
@@ -34,23 +35,31 @@ class TrelloExtractor
   end
 
   def trello_cards
-    url = "https://api.trello.com/1/board/#{@trello_board_id}/cards?fields=name,labels,url,idShort,idList&#{@@auth_params}"
+
+    url = "https://api.trello.com/1/board/#{@trello_board_id}/cards?fields=name,labels,url,idShort,idList,dateLastActivity&#{@@auth_params}"
     response = RestClient.get url, { accept: :json }
     JSON.parse(response)
   end
 
   def sync_cards
     n = 0
+    t = Time.now
 
     if @lists.count == 0 then sync_lists end
+
     t_cards = trello_cards
     t_cards.each do |element|
-      c = Card.find_or_initialize_by(trello_id: element["id"])
-      pts = points(element["labels"])
-      list_id = @lists[element["idList"]]
-      c.update(name: element["name"], board_id: @board_id, list_id: list_id, short_id: element["idShort"], trello_url: element["url"], points: pts)
-      n+=1
+
+      if element["dateLastActivity"] > @last_sync_date
+        c = Card.find_or_initialize_by(trello_id: element["id"])
+        pts = points(element["labels"])
+        list_id = @lists[element["idList"]]
+        c.update(name: element["name"], board_id: @board_id, list_id: list_id, short_id: element["idShort"], trello_url: element["url"], points: pts)
+        n+=1
+      end
     end
+    Board.where(id: @board_id).update_all(last_sync_date: t)
+    @last_sync_date = t
     n
   end
 
