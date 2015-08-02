@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150729224905) do
+ActiveRecord::Schema.define(version: 20150802045114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,13 +48,14 @@ ActiveRecord::Schema.define(version: 20150729224905) do
 
   create_table "labels", force: :cascade do |t|
     t.string   "name",       null: false
-    t.integer  "card_id",    null: false
-    t.string   "type",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "trello_id",  null: false
+    t.integer  "board_id",   null: false
+    t.string   "color"
   end
 
-  add_index "labels", ["card_id"], name: "index_labels_on_card_id", using: :btree
+  add_index "labels", ["board_id"], name: "index_labels_on_board_id", using: :btree
   add_index "labels", ["name"], name: "index_labels_on_name", using: :btree
 
   create_table "lists", force: :cascade do |t|
@@ -73,6 +74,6 @@ ActiveRecord::Schema.define(version: 20150729224905) do
 
   add_foreign_key "cards", "boards"
   add_foreign_key "cards", "lists"
-  add_foreign_key "labels", "cards"
+  add_foreign_key "labels", "boards"
   add_foreign_key "lists", "boards"
 end
